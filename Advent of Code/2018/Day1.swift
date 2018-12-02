@@ -1,7 +1,91 @@
+//
+//  Day1.swift
+//  Advent of Code
+//
+//  Created by Ryan Arana on 12/1/18.
+//  Copyright © 2018 aranasaurus.com. All rights reserved.
+//
+
 import Foundation
 
-public enum Inputs {
-    public static let one = """
+struct AdventOfCode2018 {
+    struct Day1 {
+        static func part1(inputs: String = rawInput) -> Int {
+            var i = 0
+            var cache = Set<Int>()
+            cache.insert(0)
+            for input in inputs.split(separator: "\n") {
+                i = compute(input, on: i, withCache: &cache)
+            }
+            return i
+        }
+
+        static func part2(inputs: String = rawInput) -> Int {
+            var i = 0
+            var cache = Set<Int>()
+            cache.insert(0)
+            while true {
+                for input in inputs.split(separator: "\n") {
+                    let previousCacheCount = cache.count
+                    i = compute(input, on: i, withCache: &cache)
+                    if previousCacheCount == cache.count {
+                        return i
+                    }
+                }
+            }
+            return i
+        }
+
+        static func compute<T: StringProtocol>(_ str: T, on startValue: Int, withCache values: inout Set<Int>) -> Int {
+            guard let opp = str.first, let num = Int(str[str.index(after: str.startIndex)...]) else { return startValue }
+
+            var i = startValue
+
+            switch opp {
+            case "+": i += num
+            case "-": i -= num
+            default: return i
+            }
+
+            values.insert(i)
+            return i
+        }
+//            func two() -> Int {
+//                var values = [Int: Int]()
+//                var i = 0
+//                let inputs = Inputs.one.split(separator: "\n")
+//                let run: () -> Int = {
+//                    for input in inputs {
+//                        let opp = input.first!
+//                        let num = Int(String(input[input.index(after: input.startIndex)...])) ?? 0
+//                        switch opp {
+//                        case "+":
+//                            i += num
+//                        case "-":
+//                            i -= num
+//                        default: break
+//                        }
+//
+//                        if let _ = values[i] {
+//                            return i
+//                        } else {
+//                            values[i] = i
+//                        }
+//                    }
+//                    return i
+//                }
+//                while values.values.first(where: { $0 > 1 }) == nil {
+//                    i = run()
+//                }
+//                return i
+//            }
+//            one()
+//            two()
+    }
+}
+
+extension AdventOfCode2018.Day1 {
+    static let rawInput: String = """
 +19
 -15
 +6
@@ -1033,4 +1117,3 @@ public enum Inputs {
 -74755
 """
 }
-
