@@ -10,6 +10,8 @@
 		F95E4CCA21B3B41300B857E3 /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E4CC921B3B41300B857E3 /* Day1.swift */; };
 		F995C63521B4F47A00D2C763 /* Day2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C63421B4F47A00D2C763 /* Day2.swift */; };
 		F995C63721B4F5A400D2C763 /* Day2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C63621B4F5A400D2C763 /* Day2Tests.swift */; };
+		F995C63921B5147F00D2C763 /* Day3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C63821B5147F00D2C763 /* Day3.swift */; };
+		F995C63B21B5158000D2C763 /* Day3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C63A21B5158000D2C763 /* Day3Tests.swift */; };
 		F9EFFEA821B3B38E00E994B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFFEA721B3B38E00E994B1 /* AppDelegate.swift */; };
 		F9EFFEAA21B3B38E00E994B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFFEA921B3B38E00E994B1 /* ViewController.swift */; };
 		F9EFFEAD21B3B38E00E994B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9EFFEAB21B3B38E00E994B1 /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 		F95E4CC921B3B41300B857E3 /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
 		F995C63421B4F47A00D2C763 /* Day2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day2.swift; sourceTree = "<group>"; };
 		F995C63621B4F5A400D2C763 /* Day2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day2Tests.swift; sourceTree = "<group>"; };
+		F995C63821B5147F00D2C763 /* Day3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day3.swift; sourceTree = "<group>"; };
+		F995C63A21B5158000D2C763 /* Day3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day3Tests.swift; sourceTree = "<group>"; };
 		F9EFFEA421B3B38E00E994B1 /* Advent of Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Advent of Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9EFFEA721B3B38E00E994B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9EFFEA921B3B38E00E994B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 			children = (
 				F95E4CC921B3B41300B857E3 /* Day1.swift */,
 				F995C63421B4F47A00D2C763 /* Day2.swift */,
+				F995C63821B5147F00D2C763 /* Day3.swift */,
 			);
 			path = 2018;
 			sourceTree = "<group>";
@@ -108,6 +113,7 @@
 			children = (
 				F9EFFEBC21B3B39000E994B1 /* Day1Tests.swift */,
 				F995C63621B4F5A400D2C763 /* Day2Tests.swift */,
+				F995C63A21B5158000D2C763 /* Day3Tests.swift */,
 				F9EFFEBE21B3B39000E994B1 /* Info.plist */,
 			);
 			path = "Advent of CodeTests";
@@ -215,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9EFFEAA21B3B38E00E994B1 /* ViewController.swift in Sources */,
+				F995C63921B5147F00D2C763 /* Day3.swift in Sources */,
 				F995C63521B4F47A00D2C763 /* Day2.swift in Sources */,
 				F95E4CCA21B3B41300B857E3 /* Day1.swift in Sources */,
 				F9EFFEA821B3B38E00E994B1 /* AppDelegate.swift in Sources */,
@@ -227,6 +234,7 @@
 			files = (
 				F9EFFEBD21B3B39000E994B1 /* Day1Tests.swift in Sources */,
 				F995C63721B4F5A400D2C763 /* Day2Tests.swift in Sources */,
+				F995C63B21B5158000D2C763 /* Day3Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
