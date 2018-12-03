@@ -1,6 +1,6 @@
 //
-//  Advent_of_CodeTests.swift
-//  Advent of CodeTests
+//  Day1Tests.swift
+//  Day1Tests
 //
 //  Created by Ryan Arana on 12/1/18.
 //  Copyright © 2018 aranasaurus.com. All rights reserved.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Advent_of_Code
 
-class Advent_of_CodeTests: XCTestCase {
+class Day1Tests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		F95E4CCA21B3B41300B857E3 /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95E4CC921B3B41300B857E3 /* Day1.swift */; };
+		F995C63521B4F47A00D2C763 /* Day2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C63421B4F47A00D2C763 /* Day2.swift */; };
+		F995C63721B4F5A400D2C763 /* Day2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995C63621B4F5A400D2C763 /* Day2Tests.swift */; };
 		F9EFFEA821B3B38E00E994B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFFEA721B3B38E00E994B1 /* AppDelegate.swift */; };
 		F9EFFEAA21B3B38E00E994B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFFEA921B3B38E00E994B1 /* ViewController.swift */; };
 		F9EFFEAD21B3B38E00E994B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9EFFEAB21B3B38E00E994B1 /* Main.storyboard */; };
 		F9EFFEAF21B3B39000E994B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9EFFEAE21B3B39000E994B1 /* Assets.xcassets */; };
 		F9EFFEB221B3B39000E994B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9EFFEB021B3B39000E994B1 /* LaunchScreen.storyboard */; };
-		F9EFFEBD21B3B39000E994B1 /* Advent_of_CodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFFEBC21B3B39000E994B1 /* Advent_of_CodeTests.swift */; };
+		F9EFFEBD21B3B39000E994B1 /* Day1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFFEBC21B3B39000E994B1 /* Day1Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		F95E4CC921B3B41300B857E3 /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
+		F995C63421B4F47A00D2C763 /* Day2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day2.swift; sourceTree = "<group>"; };
+		F995C63621B4F5A400D2C763 /* Day2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day2Tests.swift; sourceTree = "<group>"; };
 		F9EFFEA421B3B38E00E994B1 /* Advent of Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Advent of Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9EFFEA721B3B38E00E994B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9EFFEA921B3B38E00E994B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,7 +40,7 @@
 		F9EFFEB121B3B39000E994B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F9EFFEB321B3B39000E994B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9EFFEB821B3B39000E994B1 /* Advent of CodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Advent of CodeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F9EFFEBC21B3B39000E994B1 /* Advent_of_CodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advent_of_CodeTests.swift; sourceTree = "<group>"; };
+		F9EFFEBC21B3B39000E994B1 /* Day1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1Tests.swift; sourceTree = "<group>"; };
 		F9EFFEBE21B3B39000E994B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				F95E4CC921B3B41300B857E3 /* Day1.swift */,
+				F995C63421B4F47A00D2C763 /* Day2.swift */,
 			);
 			path = 2018;
 			sourceTree = "<group>";
@@ -101,7 +106,8 @@
 		F9EFFEBB21B3B39000E994B1 /* Advent of CodeTests */ = {
 			isa = PBXGroup;
 			children = (
-				F9EFFEBC21B3B39000E994B1 /* Advent_of_CodeTests.swift */,
+				F9EFFEBC21B3B39000E994B1 /* Day1Tests.swift */,
+				F995C63621B4F5A400D2C763 /* Day2Tests.swift */,
 				F9EFFEBE21B3B39000E994B1 /* Info.plist */,
 			);
 			path = "Advent of CodeTests";
@@ -209,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9EFFEAA21B3B38E00E994B1 /* ViewController.swift in Sources */,
+				F995C63521B4F47A00D2C763 /* Day2.swift in Sources */,
 				F95E4CCA21B3B41300B857E3 /* Day1.swift in Sources */,
 				F9EFFEA821B3B38E00E994B1 /* AppDelegate.swift in Sources */,
 			);
@@ -218,7 +225,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9EFFEBD21B3B39000E994B1 /* Advent_of_CodeTests.swift in Sources */,
+				F9EFFEBD21B3B39000E994B1 /* Day1Tests.swift in Sources */,
+				F995C63721B4F5A400D2C763 /* Day2Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

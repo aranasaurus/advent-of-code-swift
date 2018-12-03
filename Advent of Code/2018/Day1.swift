@@ -50,37 +50,6 @@ struct AdventOfCode2018 {
             values.insert(i)
             return i
         }
-//            func two() -> Int {
-//                var values = [Int: Int]()
-//                var i = 0
-//                let inputs = Inputs.one.split(separator: "\n")
-//                let run: () -> Int = {
-//                    for input in inputs {
-//                        let opp = input.first!
-//                        let num = Int(String(input[input.index(after: input.startIndex)...])) ?? 0
-//                        switch opp {
-//                        case "+":
-//                            i += num
-//                        case "-":
-//                            i -= num
-//                        default: break
-//                        }
-//
-//                        if let _ = values[i] {
-//                            return i
-//                        } else {
-//                            values[i] = i
-//                        }
-//                    }
-//                    return i
-//                }
-//                while values.values.first(where: { $0 > 1 }) == nil {
-//                    i = run()
-//                }
-//                return i
-//            }
-//            one()
-//            two()
     }
 }
 
