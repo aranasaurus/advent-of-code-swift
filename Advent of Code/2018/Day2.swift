@@ -37,6 +37,40 @@ extension AdventOfCode2018 {
                 hasTriples: counts.values.contains(3)
             )
         }
+
+        static func part2(inputs: String = rawInput) -> String {
+            let sortedLines = inputs.split(separator: "\n").sorted()
+            var i = 0
+            var ii = 1
+            var line1 = sortedLines[i]
+            var line2 = sortedLines[ii]
+            var diffIndex: String.SubSequence.Index? = nil
+            while diffIndex == nil {
+                for (char1, char2) in zip(line1, line2) {
+                    guard char1 != char2 else { continue }
+                    
+                    if diffIndex == nil {
+                        diffIndex = line1.firstIndex(of: char1)
+                    } else {
+                        ii += 1
+                        if sortedLines.count > ii {
+                            line2 = sortedLines[ii]
+                        } else {
+                            i += 1
+                            line1 = sortedLines[i]
+                            ii = i + 1
+                            line2 = sortedLines[ii]
+                        }
+                        diffIndex = nil
+                        break
+                    }
+                }
+                if let index = diffIndex {
+                    return String(line1[line1.startIndex..<index] + line1[line1.index(after: index)..<line1.endIndex])
+                }
+            }
+            return ""
+        }
     }
 }
 

@@ -48,9 +48,23 @@ class Day2Tests: XCTestCase {
     }
 
     func testPerformancePart1() {
-        // This is an example of a performance test case.
         self.measure {
             XCTAssertEqual(AdventOfCode2018.Day2.part1(), 6225)
+        }
+    }
+
+    func testPart2() {
+        XCTAssertEqual(AdventOfCode2018.Day2.part2(), "revtaubfniyhsgxdoajwkqilp")
+    }
+
+    func testPart2_samples() {
+        let inputs = ["abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"]
+        XCTAssertEqual(AdventOfCode2018.Day2.part2(inputs: inputs.joined(separator: "\n")), "fgij")
+    }
+
+    func testPerformancePart2() {
+        self.measure {
+            XCTAssertEqual(AdventOfCode2018.Day2.part2(), "revtaubfniyhsgxdoajwkqilp")
         }
     }
 }
