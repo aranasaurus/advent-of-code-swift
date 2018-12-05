@@ -57,10 +57,11 @@ extension AdventOfCode2018 {
         }
 
         static func part2(inputs: String = rawInput) -> Int {
-            let units = Set<String>(inputs.map { String($0).lowercased() })
+            let polymers = resolveReactions(for: inputs)
+            let units = Set<String>(polymers.map { String($0).lowercased() })
             var currentMin = Int.max
             for unit in units {
-                let stripped = inputs.replacingOccurrences(of: unit, with: "", options: .caseInsensitive)
+                let stripped = polymers.replacingOccurrences(of: unit, with: "", options: .caseInsensitive)
                 let resolved = resolveReactions(for: stripped)
                 currentMin = min(currentMin, resolved.count)
             }
