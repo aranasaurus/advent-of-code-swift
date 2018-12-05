@@ -37,6 +37,20 @@
                BlueprintName = "Advent of CodeTests"
                ReferencedContainer = "container:Advent of Code.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "Day1Tests">
+               </Test>
+               <Test
+                  Identifier = "Day2Tests">
+               </Test>
+               <Test
+                  Identifier = "Day3Tests">
+               </Test>
+               <Test
+                  Identifier = "Day4Tests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
