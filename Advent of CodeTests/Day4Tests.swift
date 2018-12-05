@@ -46,6 +46,39 @@ class Day4Tests: XCTestCase {
         XCTAssertEqual(Day4.part1(input: inputs), 240)
     }
 
+    func testPart2() {
+        XCTAssertEqual(Day4.part2(), 139543)
+    }
+
+    func testPerformancePart2() {
+        measure {
+            XCTAssertEqual(Day4.part2(), 139543)
+        }
+    }
+
+    func testPart2_samples() {
+        let inputs = """
+[1518-11-01 00:00] Guard #10 begins shift
+[1518-11-01 00:05] falls asleep
+[1518-11-01 00:25] wakes up
+[1518-11-01 00:30] falls asleep
+[1518-11-01 00:55] wakes up
+[1518-11-01 23:58] Guard #99 begins shift
+[1518-11-02 00:40] falls asleep
+[1518-11-02 00:50] wakes up
+[1518-11-03 00:05] Guard #10 begins shift
+[1518-11-03 00:24] falls asleep
+[1518-11-03 00:29] wakes up
+[1518-11-04 00:02] Guard #99 begins shift
+[1518-11-04 00:36] falls asleep
+[1518-11-04 00:46] wakes up
+[1518-11-05 00:03] Guard #99 begins shift
+[1518-11-05 00:45] falls asleep
+[1518-11-05 00:55] wakes up
+"""
+        XCTAssertEqual(Day4.part2(input: inputs), 4455)
+    }
+
     func testEvent_init() {
         XCTAssertEqual(Day4.Event(line: "[1518-11-01 00:00] Guard #10 begins shift"), Day4.Event.beginShift(id: 10))
         XCTAssertEqual(Day4.Event(line: "[1518-11-01 00:05] falls asleep"), Day4.Event.fallAsleep)

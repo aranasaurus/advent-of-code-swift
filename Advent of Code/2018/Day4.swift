@@ -84,16 +84,18 @@ extension AdventOfCode2018 {
             return formatter.date(from: String(line.prefix(through: endIndex)))
         }
 
-        static func part1(input: String = rawInput) -> Int {
-            let lines: [(line: String, date: Date)] = input.split(separator: "\n").compactMap {
+        static func sortInput(_ input: String) -> [(line: String, date: Date)] {
+            return input.split(separator: "\n").compactMap {
                 let line = String($0)
                 guard let date = parseDate(from: line) else { return nil }
                 return (line, date)
             }.sorted(by: { $0.date < $1.date })
+        }
 
+        static func countSleeps(in lines: [(line: String, date: Date)]) -> [Int: [Int: Int]] {
             var currentID: Int? = nil
             var entries = [Entry]()
-            var sleepsByMinuteByID: [Int: [Int:Int]] = [:]
+            var sleepsByMinuteByID = [Int: [Int: Int]]()
             for line in lines {
                 guard let e = Entry(date: line.date, line: line.line, id: currentID) else { continue }
                 currentID = e.id
@@ -112,6 +114,12 @@ extension AdventOfCode2018 {
 
                 entries.append(e)
             }
+            return sleepsByMinuteByID
+        }
+
+        static func part1(input: String = rawInput) -> Int {
+            let lines = sortInput(input)
+            let sleepsByMinuteByID = countSleeps(in: lines)
 
             var maxSleeps = -1
             var maxId = -1
@@ -128,6 +136,22 @@ extension AdventOfCode2018 {
             let maxIndex = sleeps.keys[sleeps.values.firstIndex(of: maxSleeps)!]
 
             return maxId * maxIndex
+        }
+
+        static func part2(input: String = rawInput) -> Int {
+            let lines = sortInput(input)
+            let sleepsByMinuteByID = countSleeps(in: lines)
+
+            var maxSleepsAndMinuteByID = [Int: (minute: Int, sleeps: Int)]()
+            for (id, sleepsByMinute) in sleepsByMinuteByID {
+                for (minute, sleeps) in sleepsByMinute {
+                    if sleeps > maxSleepsAndMinuteByID[id]?.sleeps ?? 0 {
+                        maxSleepsAndMinuteByID[id] = (minute, sleeps)
+                    }
+                }
+            }
+            let m = maxSleepsAndMinuteByID.max(by: { $0.value.sleeps < $1.value.sleeps }) ?? (0, (0, 0))
+            return m.key * m.value.minute
         }
     }
 }
