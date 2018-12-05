@@ -28,6 +28,21 @@ class Day5Tests: XCTestCase {
         XCTAssertEqual(Day5.part1(inputs: inputs), 10)
     }
 
+    func testPart2() {
+        XCTAssertEqual(Day5.part2(), 6946)
+    }
+
+    func testPerformancePart2() {
+        self.measure {
+            XCTAssertEqual(Day5.part2(), 6946)
+        }
+    }
+
+    func testPart2_samples() {
+        let inputs = "dabAcCaCBAcCcaDA"
+        XCTAssertEqual(Day5.part2(inputs: inputs), 4)
+    }
+
     func testReactions() {
         XCTAssertEqual(Day5.resolveReactions(for: "aA"), "")
         XCTAssertEqual(Day5.resolveReactions(for: "abBA"), "")

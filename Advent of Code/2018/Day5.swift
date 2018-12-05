@@ -55,6 +55,17 @@ extension AdventOfCode2018 {
         static func part1(inputs: String = rawInput) -> Int {
             return resolveReactions(for: inputs).count
         }
+
+        static func part2(inputs: String = rawInput) -> Int {
+            let units = Set<String>(inputs.map { String($0).lowercased() })
+            var currentMin = Int.max
+            for unit in units {
+                let stripped = inputs.replacingOccurrences(of: unit, with: "", options: .caseInsensitive)
+                let resolved = resolveReactions(for: stripped)
+                currentMin = min(currentMin, resolved.count)
+            }
+            return currentMin
+        }
     }
 }
 
