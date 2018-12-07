@@ -10,81 +10,99 @@ import Foundation
 
 extension AdventOfCode2018 {
     struct Day6 {
-        struct Location {
+        struct Location: Hashable, Equatable {
             let x: Int
             let y: Int
-            var id: String?
+            let id: Int
 
             func dist(from other: Location) -> Int {
                 return abs(x - other.x) + abs(y - other.y)
             }
+
+            func hash(into hasher: inout Hasher) {
+                hasher.combine(x)
+                hasher.combine(y)
+            }
+
+            static func ==(a: Location, b: Location) -> Bool {
+                return a.x == b.x && a.y == b.y
+            }
         }
 
         static func part1(inputs: String = rawInput) -> Int {
-            var i = 0
-            let locations = inputs.split(separator: "\n").compactMap { (s: String.SubSequence) -> Location? in
-                var l = Location(string: String(s))
-                l?.id = "\(i)"
-                i += 1
-                return l
+            // Parse input and find the bounds of the locations.
+            var minX = Int.max
+            var maxX = Int.min
+            var minY = Int.max
+            var maxY = Int.min
+            var locations = Set<Location>()
+            var areas = [Int: Int]()
+            for line in inputs.split(separator: "\n").enumerated() {
+                guard let location = Location(string: String(line.element), id: line.offset) else { continue }
+                minX = min(location.x, minX)
+                maxX = max(location.x, maxX)
+                minY = min(location.y, minY)
+                maxY = max(location.y, maxY)
+                locations.insert(location)
+                areas[location.id] = 1
             }
 
-            var s = ""
-            let sortedByX = locations.sorted(by:{ $0.x < $1.x })
-            let sortedByY = locations.sorted(by:{ $0.y < $1.y })
-            let minX = sortedByX.first!.x
-            let maxX = sortedByX.last!.x
-            let minY = sortedByY.first!.y
-            let maxY = sortedByY.last!.y
+            // Find the locations with infinite edges
+            var infinites = Set<Location>()
+            for x in minX...maxX {
+                var loc = Location(x: x, y: minY, id: -1)
+                if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
+                    infinites.insert(closest)
+                }
 
-            var grid: [Int: [Int: Location]] = [:]
-            for loc in locations {
-                grid[loc.y - minY, default: [:]][loc.x - minX] = loc
+                loc = Location(x: x, y: maxY, id: -1)
+                if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
+                    infinites.insert(closest)
+                }
+            }
+            for y in minY...maxY {
+                var loc = Location(x: minX, y: y, id: -1)
+                if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
+                    infinites.insert(closest)
+                }
+
+                loc = Location(x: maxX, y: y, id: -1)
+                if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
+                    infinites.insert(closest)
+                }
             }
 
-            var rowsOfIDs: [[String]] = []
-            for y in 0...maxY-minY {
-                var r = Array<String>(repeating: ".", count: maxX - minX + 1)
-                for x in 0...maxX-minX {
-                    if let loc = grid[y]?[x] {
-                        s.append("[\(loc.id ?? "*")]\t")
-                        r[x] = loc.id ?? "*"
+            // Calculate areas of each point within the maximums
+            for y in minY+1...maxY-1 {
+                for x in minX+1...maxX-1 {
+                    let loc = Location(x: x, y: y, id: -1)
+                    // Skip edges (infinite area) and the locations themselves (their origin is counted in their area
+                    // as they are parsed).
+                    guard !infinites.contains(loc) && !locations.contains(loc) else { continue }
+
+                    // Get the closest Location to this point
+                    guard let closest = locations.min(by: { loc.dist(from: $0) < loc.dist(from: $1) }) else { continue }
+
+                    // Make sure there are no other Locations equidistant from this point.
+                    let dist = loc.dist(from: closest)
+                    if let _ = locations.first(where: { $0.id != closest.id && loc.dist(from: $0) == dist }) {
                         continue
                     }
-
-                    let loc = Location(x: x+minX, y: y+minY, id: nil)
-
-                    guard let d = locations.min(by: { loc.dist(from: $0) < loc.dist(from: $1) }) else { continue }
-
-                    let dist = loc.dist(from: d)
-                    let shortest = locations.filter({ loc.dist(from: $0) == dist })
-                    s.append("\(shortest.count == 1 ? d.id ?? "!" : ".")\t")
-                    r[x] = shortest.count == 1 ? d.id ?? "!" : "."
-                }
-                s.append("\n")
-                rowsOfIDs.append(r)
-            }
-            print(s)
-            var areasById: [Int: Int] = [:]
-            for row in rowsOfIDs {
-                for id in row {
-                    guard id != row.first!, id != row.last!, let i = Int(id) else { continue }
-                    areasById[i, default: 0] += 1
+                    areas[closest.id, default: 1] += 1
                 }
             }
-
-            return areasById.max(by: { $0.value < $1.value })?.value ?? 0
+            return areas.values.max() ?? 0
         }
     }
 }
 
 extension AdventOfCode2018.Day6.Location {
-    init?(string: String) {
+    init?(string: String, id: Int) {
         let coords = string.split(separator: ",")
         guard coords.count == 2, let x = Int(coords[0]), let y = Int(coords[1].trimmingCharacters(in: .whitespaces)) else {
             return nil
         }
-        self.init(x: x, y: y, id: nil)
+        self.init(x: x, y: y, id: id)
     }
 }
 
