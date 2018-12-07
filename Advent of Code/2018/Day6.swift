@@ -13,10 +13,27 @@ extension AdventOfCode2018 {
         struct Location: Hashable, Equatable {
             let x: Int
             let y: Int
-            let id: Int
+            var area: Int = 1
+
+            init?(string: String) {
+                let coords = string.split(separator: ",")
+                guard coords.count == 2, let x = Int(coords[0]), let y = Int(coords[1].trimmingCharacters(in: .whitespaces)) else {
+                    return nil
+                }
+                self.init(x, y)
+            }
+
+            init(_ x: Int, _ y: Int) {
+                self.x = x
+                self.y = y
+            }
 
             func dist(from other: Location) -> Int {
                 return abs(x - other.x) + abs(y - other.y)
+            }
+
+            func dist<T: Collection>(from all: T) -> Int where T.Element == Location {
+                return all.reduce(0) { return $0 + self.dist(from: $1) }
             }
 
             func hash(into hasher: inout Hasher) {
@@ -29,80 +46,85 @@ extension AdventOfCode2018 {
             }
         }
 
-        static func part1(inputs: String = rawInput) -> Int {
+        class Grid {
             // Parse input and find the bounds of the locations.
             var minX = Int.max
             var maxX = Int.min
             var minY = Int.max
             var maxY = Int.min
             var locations = Set<Location>()
-            var areas = [Int: Int]()
-            for line in inputs.split(separator: "\n").enumerated() {
-                guard let location = Location(string: String(line.element), id: line.offset) else { continue }
-                minX = min(location.x, minX)
-                maxX = max(location.x, maxX)
-                minY = min(location.y, minY)
-                maxY = max(location.y, maxY)
-                locations.insert(location)
-                areas[location.id] = 1
-            }
-
-            // Find the locations with infinite edges
             var infinites = Set<Location>()
-            for x in minX...maxX {
-                var loc = Location(x: x, y: minY, id: -1)
-                if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
-                    infinites.insert(closest)
-                }
 
-                loc = Location(x: x, y: maxY, id: -1)
-                if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
-                    infinites.insert(closest)
-                }
-            }
-            for y in minY...maxY {
-                var loc = Location(x: minX, y: y, id: -1)
-                if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
-                    infinites.insert(closest)
-                }
-
-                loc = Location(x: maxX, y: y, id: -1)
-                if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
-                    infinites.insert(closest)
+            init(inputs: String) {
+                for line in inputs.split(separator: "\n").enumerated() {
+                    guard let location = Location(string: String(line.element)) else { continue }
+                    minX = min(location.x, minX)
+                    maxX = max(location.x, maxX)
+                    minY = min(location.y, minY)
+                    maxY = max(location.y, maxY)
+                    locations.insert(location)
                 }
             }
 
+            func calcInfinites() {
+                for x in minX...maxX {
+                    var loc = Location(x, minY)
+                    if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
+                        infinites.insert(closest)
+                    }
+
+                    loc = Location(x, maxY)
+                    if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
+                        infinites.insert(closest)
+                    }
+                }
+                for y in minY...maxY {
+                    var loc = Location(minX, y)
+                    if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
+                        infinites.insert(closest)
+                    }
+
+                    loc = Location(maxX, y)
+                    if let closest = locations.min(by: { $0.dist(from: loc) < $1.dist(from: loc) }) {
+                        infinites.insert(closest)
+                    }
+                }
+            }
+        }
+
+        static func part1(inputs: String = rawInput) -> Int {
+            // Parse input and find the bounds of the locations.
+            let grid = Grid(inputs: inputs)
+
+            grid.calcInfinites()
+            
             // Calculate areas of each point within the maximums
-            for y in minY+1...maxY-1 {
-                for x in minX+1...maxX-1 {
-                    let loc = Location(x: x, y: y, id: -1)
+            for y in grid.minY+1...grid.maxY-1 {
+                for x in grid.minX+1...grid.maxX-1 {
+                    let loc = Location(x, y)
                     // Skip edges (infinite area) and the locations themselves (their origin is counted in their area
                     // as they are parsed).
-                    guard !infinites.contains(loc) && !locations.contains(loc) else { continue }
+                    guard !grid.infinites.contains(loc) && !grid.locations.contains(loc) else { continue }
 
                     // Get the closest Location to this point
-                    guard let closest = locations.min(by: { loc.dist(from: $0) < loc.dist(from: $1) }) else { continue }
+                    guard var closest = grid.locations.min(by: { loc.dist(from: $0) < loc.dist(from: $1) }) else { continue }
 
                     // Make sure there are no other Locations equidistant from this point.
                     let dist = loc.dist(from: closest)
-                    if let _ = locations.first(where: { $0.id != closest.id && loc.dist(from: $0) == dist }) {
+                    if let _ = grid.locations.first(where: { $0 != closest && loc.dist(from: $0) == dist }) {
                         continue
                     }
-                    areas[closest.id, default: 1] += 1
+                    closest.area += 1
+                    grid.locations.update(with: closest)
                 }
             }
-            return areas.values.max() ?? 0
+            return grid.locations.max(by: { $0.area < $1.area })?.area ?? 0
         }
-    }
-}
 
-extension AdventOfCode2018.Day6.Location {
-    init?(string: String, id: Int) {
-        let coords = string.split(separator: ",")
-        guard coords.count == 2, let x = Int(coords[0]), let y = Int(coords[1].trimmingCharacters(in: .whitespaces)) else {
-            return nil
+        static func part2(inputs: String = rawInput, range: Int = 10_000) -> Int {
+            // TODO :P
+            return 0
         }
-        self.init(x: x, y: y, id: id)
     }
 }
 
