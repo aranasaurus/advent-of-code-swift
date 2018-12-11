@@ -16,43 +16,57 @@ extension AdventOfCode2018 {
             var metadataCounts = [Int]()
             var tier = -1
             var sum = 0
+
+            /// Enum for tracking which state we are in while parsing the data.
             enum State {
+                /// We are reading the children count from the first header field of a node
                 case childrenCount
+                /// We are reading the metadata entry count from the second header field of a node
                 case metadataCount
+                /// We are iterating over the metadata entries for a node
                 case metadatum
             }
+
+            // parse the data
             var state = State.childrenCount
             for datum in data {
                 switch state {
                 case .childrenCount:
+                    // add a level to our children count array and advance to the metadata count
                     tier += 1
                     childrenCounts.append(datum)
                     state = .metadataCount
                 case .metadataCount:
+                    // add a level to our metadata count array
                     metadataCounts.append(datum)
                     if childrenCounts[tier] == 0 {
+                        // if there are no children advance to reading metadata
                         state = .metadatum
                     } else {
+                        // if there are children, start parsing them
                         state = .childrenCount
                     }
                 case .metadatum:
+                    // process the metadata
                     sum += datum
-
                     metadataCounts[tier] -= 1
+
                     if metadataCounts[tier] == 0 {
+                        // if we're done with this node's metadata, check if we have children
                         if childrenCounts[tier] == 0 {
+                            // if we don't have anymore children to process we're done with this node/tier.
                             metadataCounts.removeLast()
                             childrenCounts.removeLast()
 
-                            while tier > 0 {
+                            if tier > 0 {
+                                // if we're not the root node, decrease the parent node's children count and advance our
+                                // state as appropriate
                                 tier -= 1
                                 childrenCounts[tier] -= 1
                                 if childrenCounts[tier] > 0 {
                                     state = .childrenCount
-                                    break
                                 } else if metadataCounts[tier] > 0 {
                                     state = .metadatum
-                                    break
                                 }
                             }
                         }
