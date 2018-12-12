@@ -30,4 +30,8 @@ class Day9Tests: XCTestCase {
             XCTAssertEqual(Day9.part1(), 384288)
         }
     }
+
+    func testPart2() {
+        XCTAssertEqual(Day9.part2(), 384288)
+    }
 }
